@@ -47,6 +47,7 @@ public class sifreApp implements WindowListener, ActionListener{
 			alfabe = alfabe.substring(0, randint) + alfabe.substring(randint + 1);
 		}
 
+		alfabe = "abcdefghijklmnopqrstuvwyz";
 		System.out.println(anahtar);
 	}
 
@@ -56,21 +57,38 @@ public class sifreApp implements WindowListener, ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		String s = e.getActionCommand();
-		String metin = ta1.getText();
+		String metin = new String();
 		String sifreli_metin = new String();
+		char c_tmp;
 		
 		if (s == "Sifrele") {
+			metin = ta1.getText();
+			sifreli_metin = "";
 			try {
-				for (int d = 0; d < 25; d++) {				
-					sifreli_metin = metin.replace(alfabe, anahtar);
-				}				
+				for (int d = 0; d < metin.length(); d++) {
+					c_tmp = metin.charAt(d);
+					c_tmp = anahtar.charAt(alfabe.indexOf(c_tmp));
+					sifreli_metin = sifreli_metin + Character.toString(c_tmp);
+				}
+				
 				ta2.setText(sifreli_metin);
 			}
 			catch(Exception e1){}
 		}
 		
-		else if (s == "Sifreyi coz") {			
-			ta2.setText(anahtar);
+		else if (s == "Sifreyi coz") {
+			sifreli_metin = ta2.getText();
+			metin = "";
+			try {
+				for (int d = 0; d < sifreli_metin.length(); d++) {
+					c_tmp = sifreli_metin.charAt(d);
+					c_tmp = alfabe.charAt(anahtar.indexOf(c_tmp));
+					metin = metin + Character.toString(c_tmp);
+				}
+				
+				ta1.setText(metin);
+			}
+			catch(Exception e1){}
 		}
 	}
 	
